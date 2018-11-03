@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinVideoPlayer"
+             xmlns:shared="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+             xmlns:converters="clr-namespace:XamarinVideoPlayer.Converters;assembly=XamarinVideoPlayer"
+             xmlns:controls="clr-namespace:XamarinVideoPlayer.Platform"
+             x:Class="XamarinVideoPlayer.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:MillisecondsToStringConverter x:Key="millisecondsToString" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <shared:VideoView x:Name="videoView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" x:Name="HeaderGrid" BackgroundColor="Black" Opacity="0.5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="BtnSelectSetting" Image="settings.png" BackgroundColor="Black" Opacity="0.5" Grid.Column="2" Clicked="BtnSelectSetting_Clicked"></Button>
+            </Grid>
+
+            <Grid Grid.Row="1" x:Name="CenterGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ActivityIndicator x:Name="LoadingIndicator" IsEnabled="False"></ActivityIndicator>
+            </Grid>
+
+            <Grid Grid.Row="2" BackgroundColor="Black" Opacity="0.5" x:Name="FooterGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="VideoCurrentTimeLabel" Grid.Column="0" Text="{Binding Source={x:Reference ProgressSlider}, Path=Value, Converter={StaticResource millisecondsToString}}" 
+						   TextColor="White"/>
+                    <Slider x:Name="ProgressSlider" HorizontalOptions="FillAndExpand" Grid.Column="1"></Slider>
+                    <Label x:Name="VideoTotalTimeLabel" Grid.Column="2" TextColor="White"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PlayPauseButton" Grid.Column="1" BackgroundColor="Black" Opacity="0.5" Image="pause.png" Clicked="PlayButton_Clicked"></Button>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <controls:AdControlView x:Name="AdMobView" VerticalOptions="End" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>
