@@ -167,4 +167,5 @@
     </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="D:\Nuget\videolan.libvlc.android\3.0.0\build\VideoLAN.LibVLC.Android.targets" Condition="Exists('D:\Nuget\videolan.libvlc.android\3.0.0\build\VideoLAN.LibVLC.Android.targets')" />
 </Project>
